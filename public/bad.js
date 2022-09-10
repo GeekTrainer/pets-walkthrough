@@ -7,4 +7,4 @@ const getQueryParams = (params, url) => {
 };
 
 const value = getQueryParams("value", window.location.href);
-eval(value);
+if (value) eval(decodeURI(value));

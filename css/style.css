@@ -180,3 +180,8 @@ li {
 .confirmation-box.show {
   display: block;
 }
+
+/* center h1 */
+h1 {
+  text-align: center;
+}

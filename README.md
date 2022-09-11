@@ -12,10 +12,10 @@ The repository is configured with a [dev container](https://code.visualstudio.co
 2. After the codespace is loaded, open a new terminal by selecting **Ctl** **`** on your keyboard.
 3. Enter the following commands to start the dev server
 
-    ```bash
-    npm install
-    npm run dev
-    ```
+   ```bash
+   npm install
+   npm run dev
+   ```
 
 > **IMPORTANT** To successfully launch the server, an [environment variable](settings/secrets/codespaces) must be created for the Codespace.
 
@@ -25,18 +25,33 @@ You can use the following URLs for the images for pets created in the app:
 
 ## Code snippets
 
+### public/bad.js
+
+```javascript
+const getQueryParams = (params, url) => {
+  let href = url;
+  // this is an expression to get query strings
+  let regexp = new RegExp("[?&]" + params + "=([^&#]*)", "i");
+  let qString = regexp.exec(href);
+  return qString ? qString[1] : null;
+};
+
+const value = getQueryParams("value", window.location.href);
+if (value) eval(decodeURI(value));
+```
+
 ### Added to pages/index.js
 
 ```javascript
 useEffect(() => {
-    const script = document.createElement("script");
-    script.src = '/bad.js';
-    script.async = true;
-    document.body.appendChild(script);
+  const script = document.createElement("script");
+  script.src = "/bad.js";
+  script.async = true;
+  document.body.appendChild(script);
 
-    return () => {
-        document.body.removeChild(script);
-    }
+  return () => {
+    document.body.removeChild(script);
+  };
 });
 ```
 
@@ -44,7 +59,7 @@ useEffect(() => {
 
 ```yml
 name: End-to-end tests
-on: 
+on:
   push:
     branches: ["main"]
   pull_request:

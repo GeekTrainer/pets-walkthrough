@@ -5,16 +5,9 @@ import Pet from "../models/Pet";
 import { useEffect } from "react";
 
 const Index = ({ pets }) => {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = '/bad.js';
-    script.async = true;
-    document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    }
-  });
+  // TODO: add code here
+
   return (
     <>
       {/* Create a card for each pet */}

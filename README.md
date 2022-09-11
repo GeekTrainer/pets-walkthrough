@@ -1,82 +1,67 @@
-## Example app using MongoDB
+# Sample Next.js app with MongoDB
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+This repository contains a sample app generated from the [Next.js example using MongoDB](https://github.com/vercel/next.js/tree/canary/examples/with-mongodb). The design is to be used as a walk-through of GitHub features, including [Codespaces](https://github.com/features/codespaces), [Actions](https://github.com/features/actions) and [GitHub Advanced Security (GHAS)](https://github.com/features/security).
 
-If you want to learn more about MongoDB, visit the following pages:
+## Structure of the repository
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
+The repository is configured with a [dev container](https://code.visualstudio.com/docs/remote/create-dev-container) which can be used with Codespaces. The container uses Docker Compose to combine the [Cypress](https://github.com/cypress-io/cypress-docker-images) image for web app dev and [MongoDB](https://www.mongodb.com/compatibility/docker) for the database.
 
-## Deploy your own
+## Running the in Codespaces
 
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+1. In the upper-right corner of the main page for the repository, select **Code** > **Codespaces** > **Create codespace on main**.
+2. After the codespace is loaded, open a new terminal by selecting **Ctl** **`** on your keyboard.
+3. Enter the following commands to start the dev server
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)
+    ```bash
+    npm install
+    npm run dev
+    ```
 
-## How to use
+> **IMPORTANT** To successfully launch the server, an [environment variable](settings/secrets/codespaces) must be created for the Codespace.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Dog images
 
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
+You can use the following URLs for the images for pets created in the app:
+
+## Code snippets
+
+### Added to pages/index.js
+
+```javascript
+useEffect(() => {
+    const script = document.createElement("script");
+    script.src = '/bad.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+        document.body.removeChild(script);
+    }
+});
 ```
 
-```bash
-yarn create next-app --example with-mongodb with-mongodb-app
+### Testing action
+
+```yml
+name: End-to-end tests
+on: 
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+          start: npm run start
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
 ```
-
-```bash
-pnpm create next-app --example with-mongodb with-mongodb-app
-```
-
-## Configuration
-
-### Set up a MongoDB database
-
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
-
-### Set up environment variables
-
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
-
-```bash
-cp .env.local.example .env.local
-```
-
-Set each variable on `.env.local`:
-
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
-
-### Run Next.js in development mode
-
-```bash
-npm install
-npm run dev
-
-# or
-
-yarn install
-yarn dev
-```
-
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
-
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` environment variable.
-
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
-
-## Deploy on Vercel
-
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-#### Deploy Your Local Project
-
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?project-name=with-mongodb&repository-name=with-mongodb&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-mongodb&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH)

@@ -1,0 +1,16 @@
+on: [pull_request]
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    name: Create issue
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create issue
+        uses: geektrainer/sample-action@v1.0
+        id: create-issue
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

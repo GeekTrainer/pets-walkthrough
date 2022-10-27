@@ -29,36 +29,6 @@ You can use the following URLs for the images for pets created in the app:
 
 ## Code snippets
 
-### public/bad.js
-
-```javascript
-const getQueryParams = (params, url) => {
-  let href = url;
-  // this is an expression to get query strings
-  let regexp = new RegExp("[?&]" + params + "=([^&#]*)", "i");
-  let qString = regexp.exec(href);
-  return qString ? qString[1] : null;
-};
-
-const value = getQueryParams("value", window.location.href);
-if (value) eval(decodeURI(value));
-```
-
-### Added to pages/index.js
-
-```javascript
-useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "/bad.js";
-  script.async = true;
-  document.body.appendChild(script);
-
-  return () => {
-    document.body.removeChild(script);
-  };
-});
-```
-
 ### Testing action
 
 ```yml
